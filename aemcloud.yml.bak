@@ -1,0 +1,11 @@
+environment:
+  name: aemcloud-package-tool
+  images:
+    - 312510419251.dkr.ecr.us-west-2.amazonaws.com/aem:6-4-2-0.samplecontent.author
+  sync_root: app/src/main/content
+build:
+  image: maven:3.5-jdk-8
+  script:
+    - mvn package -DskipTests=true
+  artifactPath: app/target
+

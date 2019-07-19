@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workspaceFilter version="1.0">
+    <filter root="/apps/hoodoo-digital/aem-cloud/package-tool"/>
+	<filter root="/apps/hoodoo-digital/aem-cloud/connect"/>
+	<filter root="/apps/hoodoo-digital/aem-cloud/install"/>
+	<filter root="/apps/hoodoo-digital/config"/>
+	<filter root="/conf/aem-cloud" mode="merge"/>
+	<filter root="/apps/cq/core/content/nav/tools/deployment/aem-cloud"/>
+	<filter root="/apps/cq/core/content/nav/tools/cloudservices" mode="merge"/>
+</workspaceFilter>

@@ -1,0 +1,97 @@
+<sly data-sly-use.model="digital.hoodoo.aemcloud.packagetool.models.LocalPackagesModel">
+    <coral-accordion >
+        <coral-dialog id="schedule-dialog">
+            <coral-dialog-header>Schedule</coral-dialog-header>
+            <coral-dialog-content>
+                <div class="coral-Form-fieldwrapper table-filter">
+                    <label class="coral-Form-fieldlabel">Schedule</label>
+                    <coral-select class="coral-Form-field coralSelectionDialog" placeholder="Select one" name="filter_local-schedule" labelledby="schedule-label"
+                        data-sly-list="${model.schedulerOptions}">
+                        <coral-select-item value="${item.value}" selected data-sly-test="${item.selected}">${item.name}</coral-select-item>
+                        <coral-select-item value="${item.value}" data-sly-test="${!item.selected}">${item.name}</coral-select-item>
+                    </coral-select>
+                </div>
+            </coral-dialog-content>
+            <coral-dialog-footer>
+                <button is="coral-button" variant="primary" coral-close="" class="coral-Button coral-Button--primary" size="M">
+                    <coral-button-label onclick="setSchedulePeriodDialog()">Accept</coral-button-label>
+                </button>
+            </coral-dialog-footer>
+        </coral-dialog>
+        <coral-accordion-item id="local-filters">
+            <coral-accordion-item-label>Filter by</coral-accordion-item-label>
+            <coral-accordion-item-content>
+                <div class="coral-Form">
+                    <div class="coral-Form-fieldwrapper table-filter">
+                        <label class="coral-Form-fieldlabel">Group</label>
+                        <coral-select class="coral-Form-field groupSelectionFilter" placeholder="Select groups" name="filter_local-group" labelledby="groups-label" data-sly-list="${model.groups}" multiple>
+                            <coral-select-item value="${item.name}" selected data-sly-test="${item.selected}">${item.title}</coral-select-item>
+                            <coral-select-item value="${item.name}" data-sly-test="${!item.selected}">${item.title}</coral-select-item>
+                        </coral-select>
+                    </div>
+                    <div class="coral-Form-fieldwrapper table-filter">
+                        <label class="coral-Form-fieldlabel">Name</label>
+                        <input is="coral-textfield" class="nameSelectionFilter" placeholder="Search by name..." name="filter_local-name" value="${model.nameFilter}" onkeypress="submitIfEnterIsPressed(event)">
+                    </div>
+                    <div class="coral-Form-fieldwrapper table-filter">
+                        <label class="coral-Form-fieldlabel">Schedule</label>
+                        <coral-select class="coral-Form-field scheduleSelectionFilter" placeholder="Select one" name="filter_local-schedule" labelledby="schedule-label"
+                            data-sly-list="${model.schedulerOptions}">
+                            <coral-select-item value="${item.value}" selected data-sly-test="${item.selected}">${item.name}</coral-select-item>
+                            <coral-select-item value="${item.value}" data-sly-test="${!item.selected}">${item.name}</coral-select-item>
+                        </coral-select>
+                    </div>
+                    <div class="coral-Form-fieldwrapper table-button">
+                        <button is="coral-button" onclick="refreshLocalPackages()" variant="secondary" >Apply</button>
+                    </div>
+                    <div class="loading-frame">
+                        <coral-wait></coral-wait>
+                    </div>
+                </div>
+            </coral-accordion-item-content>
+        </coral-accordion-item>
+    </coral-accordion>
+    <table id="local-package-table" is="coral-table" selectable multiple>
+        <colgroup>
+            <col is="coral-table-column" fixedwidth>
+            <col is="coral-table-column">
+        </colgroup>
+        <thead is="coral-table-head">
+            <tr is="coral-table-row" class="table-heading-row">
+                <th is="coral-table-headercell" class="table-heading">
+                    <coral-checkbox coral-table-select class="main-check" onchange="enableDisableMainCheck()"></coral-checkbox>
+                </th>
+                <th is="coral-table-headercell" class="table-heading">
+                    <button is="coral-button" class="coral-Form-field schedule-button" variant="primary" disabled>Schedule</button>
+                    <button is="coral-button" class="coral-Form-field send-to-aem" variant="primary" onclick="sendPackages()" disabled>Send to AEM Cloud</button>
+                </th>
+            </tr>
+        </thead>
+        <tbody is="coral-table-body" id="local-table-body">
+            <sly data-sly-list="${model.packages}">
+                <tr id="${item.id}" is="coral-table-row" class="localPackagesRow">
+                    <td is="coral-table-cell" class="package-cell-checkbox">
+                        <coral-checkbox name="${item.id}" class="coralCheck localListCheckbox${itemList.index}" onchange="enableDisableButtons()" coral-table-rowselect></coral-checkbox>
+                    </td>
+                    <td is="coral-table-cell" class="package-cell">
+                        <div class="package-info">
+                            <div class="package-name">
+                                <a href="${item.link}" target="_blank">${item.name}</a>
+                            </div>
+                            <div class="small-info" data-sly-test="${item.info}"><span>${item.info}</span><span data-sly-test="${item.packageDate}" data-sly-attribute.packageDate="${item.packageDate}" class="localPackageDate${itemList.index}"></span></div>
+                            <p class="description" data-sly-test="${item.description}">${item.description}</p>
+                            <div class="description">Scheduled:
+                                <coral-select class="coral-Form-field quiet-drop localDropdown${itemList.index}" variant="quiet" labelledby="schedule-label"
+                                    data-sly-list.options="${model.schedulerOptions}" onchange="setSchedulePeriodDropdown(${itemList.index @ context='number'})">
+                                    <coral-select-item value="${options.value}" selected data-sly-test="${options.value == item.scheduled.value}">${options.name}</coral-select-item>
+                                    <coral-select-item value="${options.value}" data-sly-test="${options.value != item.scheduled.value}">${options.name}</coral-select-item>
+                                </coral-select>
+                                <p data-sly-test="${item.nextScheduledRun}" class="nextScheduleRun${itemList.index}" data-sly-attribute.nextDate="${item.nextScheduledRun}"></p>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </sly>
+        </tbody>
+    </table>
+</sly>

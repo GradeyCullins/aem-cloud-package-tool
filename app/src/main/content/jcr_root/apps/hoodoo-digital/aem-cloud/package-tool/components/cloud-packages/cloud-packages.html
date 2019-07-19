@@ -1,0 +1,95 @@
+<sly data-sly-use.model="digital.hoodoo.aemcloud.packagetool.models.CloudPackagesModel">
+    <coral-accordion>
+        <coral-dialog id="import-dialog">
+            <coral-dialog-header>Import options</coral-dialog-header>
+            <coral-dialog-content>
+                <div class="coral-Form-fieldwrapper table-filter">
+                    <label class="coral-Form-fieldlabel">Imported packages should be:</label>
+                    <coral-checkbox name="installOnImport">Installed</coral-checkbox>
+                    <coral-checkbox name="replicateOnImport">Replicated</coral-checkbox>
+                </div>
+            </coral-dialog-content>
+            <coral-dialog-footer>
+                <button is="coral-button" variant="primary" coral-close="" class="coral-Button coral-Button--primary" size="M">
+                    <coral-button-label onclick="importPackages()">Accept</coral-button-label>
+                </button>
+            </coral-dialog-footer>
+        </coral-dialog>
+        <coral-accordion-item id="${properties.packageType}-filters">
+            <coral-accordion-item-label>Filter by</coral-accordion-item-label>
+            <coral-accordion-item-content>
+                <div class="coral-Form">
+                    <div class="coral-Form-fieldwrapper table-filter" data-sly-test="${properties.packageType == 'build'}">
+                        <label class="coral-Form-fieldlabel">Repository</label>
+                        <coral-select class="coral-Form-field repository-build-filter" placeholder="Select one" name="filter_build-repository" data-sly-list="${model.buildRepositories}">
+                            <coral-select-item value="${item.name}" selected data-sly-test="${item.selected}">${item.title}</coral-select-item>
+                            <coral-select-item value="${item.name}" data-sly-test="${!item.selected}">${item.title}</coral-select-item>
+                        </coral-select>
+                    </div>
+                    <div class="coral-Form-fieldwrapper table-filter" data-sly-test="${properties.packageType == 'build'}">
+                        <label class="coral-Form-fieldlabel">Branch</label>
+                        <input is="coral-textfield" class="branch-build-filter" placeholder="Search by branch..." name="filter_build-branch" value="${model.buildBranchFilter}">
+                    </div>
+                    <div class="coral-Form-fieldwrapper table-filter" data-sly-test="${properties.packageType == 'build'}">
+                        <label class="coral-Form-fieldlabel">Build ID</label>
+                        <input is="coral-textfield" class="buildid-build-filter" placeholder="Search by build id..." name="filter_build-buildid" value="${model.buildBuildIdFilter}">
+                    </div>
+                    <div class="coral-Form-fieldwrapper table-filter">
+                        <label class="coral-Form-fieldlabel">Name</label>
+                        <input is="coral-textfield" class="name-${properties.packageType}-filter" placeholder="Search by name..." name="filter_${properties.packageType}-name" value="${properties.packageType == 'user' ? model.userNameFilter : model.buildNameFilter}">
+                    </div>
+                    <div class="coral-Form-fieldwrapper table-button">
+                        <button data-sly-test="${properties.packageType != 'build'}" is="coral-button" onclick="refreshUserPackages()" variant="secondary">Apply</button>
+                        <button data-sly-test="${properties.packageType == 'build'}" is="coral-button" onclick="refreshBuildPackages()" variant="secondary">Apply</button>
+                    </div>
+                    <div class="cloud-loading-frame">
+                        <coral-wait></coral-wait>
+                    </div>
+                </div>
+            </coral-accordion-item-content>
+        </coral-accordion-item>
+    </coral-accordion>
+    <table id="${properties.packageType}-package-table" is="coral-table" selectable multiple>
+        <colgroup>
+            <col is="coral-table-column" fixedwidth>
+            <col is="coral-table-column">
+        </colgroup>
+        <thead is="coral-table-head">
+            <tr is="coral-table-row" class="table-heading-row">
+                <th is="coral-table-headercell" class="table-heading">
+                    <coral-checkbox coral-table-select class="cloud-main-check" onchange="cloudEnableDisableMainCheck()"></coral-checkbox>
+                </th>
+                <th is="coral-table-headercell" class="table-heading">
+                    <span></span>
+                    <button is="coral-button" class="import-btn coral-Form-field" variant="primary" onclick="importPackagesDialog()" disabled>Import from AEM Cloud</button>
+                </th>
+            </tr>
+        </thead>
+        <tbody is="coral-table-body" id="${properties.packageType}-table-body">
+            <sly data-sly-list="${properties.packageType == 'user' ? model.userPackages : model.buildPackages}">
+                <tr is="coral-table-row" class="${properties.packageType}cloudPackagesRow">
+                    <td is="coral-table-cell" class="package-cell-checkbox">
+                        <coral-checkbox name="${item.id}" class="cloud-coralCheck" onchange="cloudEnableDisableButtons()" coral-table-rowselect></coral-checkbox>
+                    </td>
+                    <td is="coral-table-cell" class="package-cell">
+                        <div class="package-info">
+                            <div class="package-name">
+                                <a  href="${properties.packageType == 'user' ? item.deepLinkUserPackages : item.link}" target="_blank">${item.name}</a>
+                                <p data-sly-test="${!item.link}">${item.name}</p>
+                            </div>
+                            <p class="small-info" data-sly-test="${item.lastModifiedDate}">
+                                <span>Last modified: </span>
+                                <span data-sly-attribute.packageDate="${item.lastModifiedDate}" class="${properties.packageType}packageDate${itemList.index}"></span>
+                            </p>
+                            <p class="small-info" data-sly-test="${item.repository}">Repository: ${item.repository}</p>
+                            <p class="small-info" data-sly-test="${item.branch}">Branch: ${item.branch}</p>
+                            <p class="small-info" data-sly-test="${item.buildId}">Build ID: ${item.buildId}</p>
+                        </div>
+                    </td>
+                </tr>
+            </sly>
+        </tbody>
+    </table>
+    <label class="coral-Form-fieldlabel no-results" data-sly-test="${properties.packageType == 'user' && !model.userPackages}">No results</label>
+    <label class="coral-Form-fieldlabel no-results" data-sly-test="${properties.packageType == 'build' && !model.buildPackages}">No results</label>
+</sly>

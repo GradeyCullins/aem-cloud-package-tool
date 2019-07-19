@@ -1,0 +1,16 @@
+version: v2
+environments:
+  - name: config-1
+    env: []
+    author: true
+    publish: false
+    aem_version: 6.4.2.0
+    sample_content: true
+    packages: []
+build:
+  sync_root: app/src/main/content
+  sync_on_start: false
+  image: 'maven:3.5-jdk-8'
+  script:
+    - mvn package -DskipTests=true
+  artifactPath: app/target

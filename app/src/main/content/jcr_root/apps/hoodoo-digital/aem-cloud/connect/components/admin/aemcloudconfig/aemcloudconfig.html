@@ -1,0 +1,69 @@
+<div data-sly-use.configuration="${'digital.hoodoo.aemcloud.connect.Configuration' @ useResource=request.requestPathInfo.suffixResource}"
+     xmlns="http://www.w3.org/1999/html">
+    <form id="editAEMCloudConfigWizard" action="${configuration.url}" method="post" class="coral-Wizard coral-Form coral-Form--vertical js-scf-communities-components-form">
+        <coral-wizardview>
+            <div class="scf-wizardview-header">
+                <div class="scf-wizard-title coral-Heading coral-Heading--2">
+                    AEM Cloud Configuration
+                </div>
+                <coral-steplist class="scf-wizard-steplist" coral-wizardview-steplist="">
+                    <coral-step selected>
+                    </coral-step>
+                </coral-steplist>
+                <coral-panelstack coral-wizardview-panelstack="" class="scf-wizard-controls">
+                    <coral-panel role="tabpanel">
+                        <coral-panel-content>
+                            <a is="coral-anchorbutton" href="/apps/hoodoo-digital/aem-cloud/connect/content/configurations.html">Cancel</a>
+                            <button id="aemcloud-submit" class="coral-Button" is="coral-button" variant="primary" type="submit">Save</button>
+                        </coral-panel-content>
+                    </coral-panel>
+                </coral-panelstack>
+            </div>
+        </coral-wizardview>
+        <div>
+            <div class="social-console-settings-tab social-console-edit-settings-tab">
+                <div class="coral-TabPanel coral-TabPanel--large scf-js-settingstabs" data-init="tabs">
+                    <nav class="coral-TabPanel-navigation">
+                        <a class="coral-TabPanel-tab is-active" data-toggle="tab">Basic</a>
+                    </nav>
+                    <div class="coral-TabPanel-content">
+                        <section class="coral-TabPanel-pane is-active">
+                            <div>
+                                <div class="coral-FixedColumn foundation-layout-util-vmargin">
+                                    <div class="coral-FixedColumn-column">
+                                        <div class="coral-Form-fieldwrapper">
+                                            <label class="coral-Form-fieldlabel">Configuration Title *</label>
+                                            <input class="coral-Form-field coral-Textfield" type="text" name="jcr:title" value="${configuration.title}" aria-required="true">
+                                        </div>
+                                        <div class="coral-Form-fieldwrapper">
+                                            <label class="coral-Form-fieldlabel">AEM Cloud Domain *</label>
+                                            <input class="coral-Form-field coral-Textfield" type="text" name="aemCloudUrl" value="${configuration.aemCloudUrl}" aria-required="true">
+                                            <coral-icon class="coral-Form-fieldinfo" icon="infoCircle"></coral-icon>
+                                            <coral-tooltip variant="info" placement="left" target="_prev">Example: https://[account].aem.cloud. If the protocol is omitted, https will be used.</coral-tooltip>
+                                        </div>
+                                        <div class="coral-Form-fieldwrapper">
+                                            <label class="coral-Form-fieldlabel">AEM Cloud Account Name *</label>
+                                            <input class="coral-Form-field coral-Textfield" type="text" name="aemCloudAccount" value="${configuration.aemCloudAccount}" aria-required="true">
+                                        </div>
+                                        <div class="coral-Form-fieldwrapper">
+                                            <label class="coral-Form-fieldlabel">API Key Name *</label>
+                                            <input class="coral-Form-field coral-Textfield" type="text" name="aemCloudKeyName" value="${configuration.aemCloudKeyName}" aria-required="true">
+                                            <coral-icon class="coral-Form-fieldinfo" icon="infoCircle"></coral-icon>
+                                            <coral-tooltip variant="info" placement="left" target="_prev">The name of the key that was created on AEM Cloud API</coral-tooltip>
+                                        </div>
+                                        <div class="coral-Form-fieldwrapper">
+                                            <label class="coral-Form-fieldlabel">API Key Value *</label>
+                                            <input class="coral-Form-field coral-Textfield" type="password" name="aemCloudKeyValue" value="${configuration.aemCloudKeyValue}" aria-required="true" autocomplete="new-password">
+                                            <coral-icon class="coral-Form-fieldinfo" icon="infoCircle"></coral-icon>
+                                            <coral-tooltip variant="info" placement="left" target="_prev">The value of the key that was created on AEM Cloud API</coral-tooltip>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

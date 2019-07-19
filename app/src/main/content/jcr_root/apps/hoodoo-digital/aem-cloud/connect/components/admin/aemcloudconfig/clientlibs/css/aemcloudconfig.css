@@ -1,0 +1,71 @@
+.coral-Checkbox-description{
+    color:#707070;
+    line-height: 1.6875rem;
+}
+.coral3-Step-markerContainer{
+    display: none;
+}
+
+
+.scf-fix-checks {
+    z-index: 1;
+}
+
+.scf-wizardview-header {
+    display: -webkit-flex;
+    /* @polyfill Safari */
+    display: flex;
+    padding: 0 0.9375rem;
+    height: 4.125rem;
+    background-color: #FAFAFA;
+}
+
+.scf-wizardview-header .coral-Step-markerContainer {
+    display: none;
+}
+
+.scf-wizard-title {
+    line-height: 4.125rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.scf-wizard-controls {
+    margin-top: 0.875rem;
+}
+
+.scf-wizard-controls button,
+.scf-wizard-controls a {
+    margin-right: 0.625rem;
+}
+
+.scf-wizard-steplist {
+    -webkit-flex: 1;
+    flex: 1;
+    margin-top: 0.875rem;
+}
+
+.wf-event-list .event {
+    border: solid 1px #707070;
+    border-top:none;
+    padding: 10px;
+}
+
+.wf-event-list .event:first-child {
+    border-top: solid 1px #707070;
+}
+
+.wf-event-list .event .content {
+    display: inline-block;
+}
+
+.wf-event-list .event .delete-btn {
+    display: inline-block;
+    float: right;
+    padding: 13px;
+}
+
+.connect-fieldwrapper {
+    height: 38px;
+}

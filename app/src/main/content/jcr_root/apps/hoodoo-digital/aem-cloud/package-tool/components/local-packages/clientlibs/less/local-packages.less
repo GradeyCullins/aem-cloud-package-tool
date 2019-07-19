@@ -1,0 +1,144 @@
+.table-heading {
+
+  padding: 0 .625rem;
+
+  coral-table-headercell-content {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  .send-to-aem {
+    margin-left: 20px;
+  }
+}
+
+.select-label {
+  width: 110px;
+}
+
+.description {
+  display: flex;
+  align-items: center;
+  .quiet-drop {
+    .coral3-Button {
+      padding: 0;
+      height: initial;
+      display: flex;
+      align-items: center;
+      .coral3-Icon {
+        height: initial;
+        width: initial;
+        line-height: initial;
+        position: relative;
+        order: 2;
+      }
+      .coral3-Select-label {
+        font-size: 12px;
+        color: #565656;
+        margin: 0 5px 0 10px;
+        font-family: 'adobe-clean';
+      }
+    }
+    .coral3-Overlay {
+      top: 20px !important;
+      .coral3-SelectList {
+        min-width: 100px;
+      }
+    }
+  }
+  .nextScheduleRun{
+    margin-left: 5px;
+  }
+}
+
+.table-filter {
+  display: flex;
+  align-items: center;
+  padding-bottom: 10px;
+  label {
+    padding-right: 20px;
+    min-width: 50px;
+  }
+  coral-select {
+    width: -webkit-fill-available;
+    width: -moz-available;
+  }
+  input {
+    width: -webkit-fill-available;
+    width: -moz-available;
+  }
+}
+
+.table-button {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 10px;
+}
+
+.table-heading-row {
+  height: 60px;
+}
+
+.package-cell-checkbox {
+  padding: 0 .625rem;
+}
+
+.package-cell {
+  height: unset;
+  display: flex;
+  align-items: center;
+  min-height: 64px;
+  padding: 10px 0;
+  .package-image {
+    display: flex;
+    align-items: center;
+  }
+  .package-info {
+    margin-left: 20px;
+    a,
+    p {
+      padding-right: 10px;
+    }
+    .package-name {
+      a,
+      p {
+        color: #2278B5;
+        font-size: 15px;
+        line-height: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        text-decoration: none;
+        word-break: break-word;
+      }
+    }
+    p {
+      font-size: 11px;
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+    .small-info {
+      color: #2278B5;
+      font-size: 11px;
+    }
+    .description {
+      color: #999;
+      .schedule-label {
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.loading-frame{
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cloud-loading-frame{
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
